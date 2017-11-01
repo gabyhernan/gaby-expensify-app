@@ -1,11 +1,13 @@
-// We have to give the following info
-// entry point ->  output file
-
 const path = require('path');
-
-
-// where we write config details for our webpack build
-module.exports = {
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// placing object inside a func when ready for production
+// advantage of func is that you can use params
+module.exports = (env) => {
+  const isProduction = env === 'production';
+// make new instance of plugin, we have to pass name of file as arg
+ const CSSExtract = new ExtractTextPlugin('styles.css')
+  console.log('env', env);
+  return {
   entry: './src/app.js',
   output: {  // first is path, second is file name
     // path is the absolute path on your machine to where you want to
@@ -23,14 +25,29 @@ module.exports = {
       exclude: /node_modules/ // lets us exclude a given set of files in our case the node modules
     }, {
       test: /\.s?css$/ ,  // target all files that end in .css
-      use: [ // use allows us to specify an array of loader when u have more than 1
-        'style-loader',
-        'css-loader',
-        'sass-loader'
-      ]
+      // how we define how we want our abstraction to work , we deleted arrays of use
+      use: CSSExtract.extract({
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
+      })
     }]
   },
-  devtool: 'cheap-module-eval-source-map',
+  plugins: [
+    CSSExtract // going to extract css to their own files out of bundle.js
+  ],
+  devtool: isProduction ? 'source-map' :'inline-source-map',
   devServer: { // setting up webpack devserver
   // many other config options available in Webpack devserver documentation
     contentBase: path.join(__dirname, 'public'),
@@ -39,3 +56,7 @@ module.exports = {
 
   }
 };
+
+}
+
+
