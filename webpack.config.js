@@ -15,7 +15,7 @@ module.exports = (env) => {
     // we can't use ./ , needs to be an absolute path
 
     //now we have access to path.join & we can use it to join our 2 paths
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'public', 'dist'),
     filename: 'bundle.js'
   }, // setting up loader
   module: { // rules defines how you want to use your loader
@@ -51,8 +51,10 @@ module.exports = (env) => {
   devServer: { // setting up webpack devserver
   // many other config options available in Webpack devserver documentation
     contentBase: path.join(__dirname, 'public'),
-    historyApiFallback: true // tells our dev server that we are going to be
+    historyApiFallback: true, // tells our dev server that we are going to be
     // handling routing via our client side & that it should return this page
+    publicPath: '/dist/' // adding dist to our public path since we want all webpack
+    // bundle files to be in one folder
 
   }
 };
