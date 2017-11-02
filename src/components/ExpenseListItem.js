@@ -1,19 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { connect } from 'react-redux';
+import moment from 'moment';
+import numeral from 'numeral';
 
 
-// Export a stateless functional component
-// description , amount, createdAt
-// map through items in ExpenseList
-
-
-// i can destructure props object & het indivual things off from it
+//  destructuring props object & get indivual things off from it
  const ExpenseListItem = ({ description, amount, createdAt , id}) => (
   <div>
     <Link to={`/edit/${id}`}>
     <h3> Description  {description} </h3>     </Link>
-    <p> {amount} -  {createdAt} </p>
+    <p> {numeral(amount / 100).format('$0,0.00')}
+        -
+      {moment(createdAt).format('MMMM Do, YYYY')} </p>
 
    </div>
   );
