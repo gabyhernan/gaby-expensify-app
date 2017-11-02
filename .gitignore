@@ -1,3 +1,5 @@
 node_modules/
-id_rsa_github
-id_rsa_github.pub
+public/bundle.js
+public/bundle.js.map
+public/styles.css
+public/styles.css.map
