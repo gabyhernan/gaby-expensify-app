@@ -1,4 +1,4 @@
-import {getVisibleExpenses } from '../../selectors/expenses';
+import getVisibleExpenses  from '../../selectors/expenses';
 import moment from 'moment';
 import expenses from '../fixtures/expenses'
 // for the expenses we are going to need some test data, we need a list

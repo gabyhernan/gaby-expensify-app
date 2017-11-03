@@ -24,7 +24,7 @@ import moment from 'moment';
 // & thats what we will be able to show to the screen
 
 // we have to destructure the filters creating vars for the invidual ones
-export const getVisibleExpenses = (expenses, {text = '', sortBy, startDate,endDate}) => {
+ const getVisibleExpenses = (expenses, {text = '', sortBy, startDate,endDate}) => {
   // use .filter to return a subset of all the expenses
   return expenses.filter( (expense) => { //
     const createdAtMoment = moment(expense.createdAt);
@@ -59,3 +59,6 @@ export const getVisibleExpenses = (expenses, {text = '', sortBy, startDate,endDa
     }
   })
 };
+
+
+export default getVisibleExpenses;
