@@ -1,7 +1,10 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import {expensesReducer} from '../reducers/expenses';
 import {filtersReducer} from '../reducers/filters';
+import thunk from 'redux-thunk';
 
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default () => {
   const store = createStore(
@@ -11,7 +14,7 @@ filters: filtersReducer
   }),  // & the value is going to be the reducer that is supposed to manage that
 // & by using combineReducer we are notputting our object or array on the root
 // we are putting the array on the expenses property
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+composeEnhancers(applyMiddleware(thunk))
   );
   return store;
 };

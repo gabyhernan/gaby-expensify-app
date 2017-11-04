@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect } from 'react-redux';
-import { addExpense } from '../actions/expenses';
+import { startAddExpense } from '../actions/expenses';
 import ExpenseForm from './ExpenseForm';
 
 export class AddExpensePage extends React.Component {
   onSubmit = (expense) => {   // props.dispatch(addExpense(expense));
-      this.props.addExpense(expense);
+      this.props.startAddExpense(expense);
  // on ReactRouter we have history methods, inside we .push is how we can
 // programatically change pages , takes single string args which is ur path
       this.props.history.push('/');
@@ -34,7 +34,7 @@ export class AddExpensePage extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   // goal is to return an object
  // define props that are going to call dispatch
-    addExpense: (expense) => dispatch(addExpense(expense))
+    startAddExpense: (expense) => dispatch(startAddExpense(expense))
  // now we have the same functionality, but we have a compoment that
   // is now more testable
 })

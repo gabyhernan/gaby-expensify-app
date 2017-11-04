@@ -11,12 +11,12 @@ import expenses from '../fixtures/expenses';
 // spies & component, then each test case can worry about
 // just using those
 
-let addExpense, history, wrapper;
+let startAddExpense, history, wrapper;
 // going to be using beforeEach to run some code before each test case
 beforeEach(() => {
-   addExpense = jest.fn();
+   startAddExpense = jest.fn();
    history = { push: jest.fn() };
-   wrapper = shallow(<AddExpensePage addExpense={addExpense} history={history} />);
+   wrapper = shallow(<AddExpensePage startAddExpense={startAddExpense} history={history} />);
 }); // we can now use spies & wrappers throughtout all test cases
 // without writing them every single time
 
@@ -36,5 +36,5 @@ test('should handle addExpense onSubmit', () => {
 
   // make some assertions
   expect(history.push).toHaveBeenLastCalledWith('/');
-  expect(addExpense).toHaveBeenLastCalledWith(expenses[1]);
+  expect(startAddExpense).toHaveBeenLastCalledWith(expenses[1]);
 });

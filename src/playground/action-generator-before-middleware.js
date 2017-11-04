@@ -1,7 +1,5 @@
 // action generators for expenses
 import uuid from 'uuid';
-import database from '../firebase/firebase';
-
 
 // Steps of action generators
 // 1. Component calls action generator
@@ -24,43 +22,25 @@ import database from '../firebase/firebase';
 // that adds support for this behavior
 
 // ADD_EXPENSE /
-export const addExpense = (expense) => ({
+export const addExpense = (
+{
+ description = '',
+ note = '',
+ amount = 0,
+ createdAt = 0
+  } = {}
+   ) => ({
   type: 'ADD_EXPENSE',
-   expense
+  expense: {
+    id: uuid(),
+    description, // using property shorthand values
+    note,
+    amount,
+    createdAt
+  }
 });
-
-// change defaults to our db call
-export const startAddExpense = ( expenseData = {}) => {
-  // NOTE: we could set up defaults in function arg but we are
-  // gonna do it in a different way so u know that it can be done like this also
-
-  // we ar going to return a function
-  return (dispatch) => {  // only works cuz the middleware has been setup
-    // gets called internally by redux
-    const {
-      description = '',
-      note = '',
-      amount = 0, // destructuring from expenseData
-      createdAt = 0
-    } = expenseData
-
-    const expense = { description, note, amount, createdAt };
-    // 1. writing some data to firebase
-    // returning this so we can start a promise chain
-  return database.ref('expenses').push(expense).then( (ref) =>{
- // we have to dispatch action from up above otherwise store WONT CHANGE eva
-    dispatch(addExpense({
-      id: ref.key,
-      ...expense
-    }));
-    }) // Note that you have to dispatch this guy now instead of addExpense
-    // wherever u were using it in ur app
-
-  };
-};
-
-
 // REMOVE_EXPENSE
+
 export const removeExpense = ( {id} = {} ) => ({
     type: 'REMOVE_EXPENSE',
       id
@@ -71,4 +51,3 @@ export const editExpense = ( id, updates) => ({
   id,
   updates
 });
-
