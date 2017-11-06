@@ -7,8 +7,7 @@ To see live application live  <a href="https://gaby-expensify.herokuapp.com/"> c
 Technology Stack: 
 <br> 
     - Webpack
-<br>    
-    - React
+<br> - React
 <br> 
     - Redux
 <br> 
