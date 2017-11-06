@@ -25,10 +25,15 @@ export const expensesReducer = (state = expensesReducerDefaultState, action) => 
           ...action.updates // overwrites existing properties
           // with the ones user passes in
         }
-      } else {
+      }
+       else {
         return expense;
       }
     });
+
+     case 'SET_EXPENSES':
+    return action.expenses;
+
 
     default:
       return state;

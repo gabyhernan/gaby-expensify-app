@@ -1,7 +1,7 @@
 // Testing Action generators
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import {startAddExpense,addExpense, removeExpense, editExpense } from '../../actions/expenses';
+import {startAddExpense,addExpense, removeExpense, editExpense, setExpenses, startSetExpenses } from '../../actions/expenses';
 import expenses from '../fixtures/expenses';
 import database from '../../firebase/firebase';
 
@@ -11,6 +11,20 @@ import database from '../../firebase/firebase';
 // we can optionally add an array that configures the middleware
 const createMockStore = configureMockStore([thunk]);
 
+//lifecycle method to write some data to firebase
+beforeEach((done) => {
+// beforeEach is not going to wait ffor this to complete before it allows
+// the test cases to run , which means that some test cases are going to run
+// before the data gets saved, to fix this we can use done
+  const expensesData = {};
+  expenses.forEach( ({id, description, note, amount, createdAt}) => {
+    expensesData[id] = { description, note, amount, createdAt }
+
+
+  })
+  database.ref('expenses').set(expensesData).then( () => done());
+  // won't allow test cases to run until firebase has synced up the data
+})
 
 // toEqual(val) - when u want to check 2 objects or arrays  have the same value
 // toBe - when u want to check booleans, numbers or strings have same value
@@ -114,6 +128,29 @@ test('should setup add expense action object with provided values', () => {
       // instead of a literal value , just have to specify type expected
       // since we don't know what it would be
   });
+})
+
+test('should set up set expense action object with data ', () => {
+  const action = setExpenses(expenses);
+  expect(action).toEqual({
+    type: 'SET_EXPENSES',
+    expenses
+  });
+
+});
+
+test('should fetch data from database and get expenses ', (done) => {
+  const store = createMockStore({});
+  store.dispatch(startSetExpenses()).then( () => {
+    const actions = store.getActions();
+
+    expect(actions[0]).toEqual({
+      type: 'SET_EXPENSES',
+      expenses
+    });
+    done();
+  })
+
 })
 
 // test('should set up add expense action object with default values', () =>{

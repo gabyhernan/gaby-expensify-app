@@ -72,3 +72,39 @@ export const editExpense = ( id, updates) => ({
   updates
 });
 
+// SET_EXPENSES
+export const setExpenses = (expenses) => ({
+  type: 'SET_EXPENSES',
+  expenses
+});
+
+// START_SET_EXPENSES - asynchronous action that will fetch data
+// 1. fetch all expense data once
+// 2. parse that data into an array
+// 3. Dispatch SET_EXPENSES
+// 4.
+export const startSetExpenses = () => {
+  return (dispatch) => {
+
+   return database.ref('expenses').once('value')
+  .then( (snapshot) => {
+   const expenses = [];
+    // iterate over all of the child snapshots & toss them in this array
+    snapshot.forEach( (childSnapshot) => {
+      // every snapshot has access to key which is that uniqueId firebase creates
+      expenses.push({
+        id: childSnapshot.key,
+        // spreads out what comes back from child snapshot
+        // so we dont have to write it every single time
+        ...childSnapshot.val()
+      });
+
+      dispatch(setExpenses(expenses));
+    })
+  })
+  .catch( (e) => {
+    console.log('error fetching data', e);
+  });
+
+  };
+};

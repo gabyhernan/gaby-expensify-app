@@ -188,7 +188,7 @@ database.ref('expenses')
   })
   .catch( (e) => {
     console.log('error fetching data', e);
-  })
+  });
 
 database.ref('expenses').on('value', (snapshot) => {
   const expenses = [];
