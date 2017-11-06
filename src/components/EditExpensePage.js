@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
-import { editExpense, startRemoveExpense } from '../actions/expenses';
+import { startEditExpense, startRemoveExpense } from '../actions/expenses';
 
 // Refactor to be a class based comp
 // Setup mapDispatchToProps - editExpense, removeExpense
@@ -11,7 +11,7 @@ export class EditExpensePage extends React.Component {
 
   onSubmit = (expense) => {
 // Dispatch the action to edit the expense,Then redirect to dashboard page
-      this.props.editExpense(this.props.expense.id, expense);
+      this.props.startEditExpense(this.props.expense.id, expense);
 // console.log('updated', expense);
  // on ReactRouter we have history methods, inside we .push is how we can
 // programatically change pages , takes single string args which is ur path
@@ -44,7 +44,7 @@ export class EditExpensePage extends React.Component {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-  editExpense: (id, expense) =>  dispatch(editExpense(id, expense)) ,
+  startEditExpense: (id, expense) =>  dispatch(startEditExpense(id, expense)) ,
   startRemoveExpense: (data) => dispatch(startRemoveExpense(data))
   }
 
