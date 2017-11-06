@@ -1,6 +1,13 @@
 # Expensify App 
 
-React application that lets you add and track your expenses.  
+React CRUD application that lets  you track your expenses.  
+
+To see live application live  <a href="https://gaby-expensify.herokuapp.com/"> click here </a>
 
 Technology Stack: 
- Webpack, React, Redux, Firebase, Express, Jest & Enzyme library(testing)
+    - Webpack
+    - React
+    - Redux
+    - Firebase (database)
+    - Express
+    - Jest & Enzyme library(testing)
