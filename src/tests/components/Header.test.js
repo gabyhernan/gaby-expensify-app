@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import  ReactShallowRenderer from 'react-test-renderer/shallow';
-import Header from '../../components/Header';
-
+import {Header} from '../../components/Header';
+import { startLogout} from '../../actions/auth';
 // react-test-renderer -  allows us to render our components inside of
 // regular JS code & then we can assert something about what got rendered
 
@@ -22,7 +22,7 @@ import Header from '../../components/Header';
 // there is a Jest mehod  from expext called toMatchSnapshot
 
 test('should render Header correctly' , () => {
-  const wrapper = shallow(<Header />); // we pass in JSX trying to render
+  const wrapper = shallow(<Header startLogout={() => {}} />); // we pass in JSX trying to render
   expect(wrapper).toMatchSnapshot();
   // to make Enzyme work with the snapshot testing functionality
   // there is one little utility library called enzyme-to-json
@@ -44,3 +44,17 @@ test('should render Header correctly' , () => {
   // toMatchSnapshot() is going to take a snapshot & let us now when changes happen in our component
 // 1st time test is passed it is going to pass, cuz there is no existing snapshot
 });
+
+
+// use spies for button
+// should call startLogout on button click
+test('should call startLogout on button click', () => {
+  const startLogoutSpy = jest.fn();
+  const wrapper = shallow(<Header startLogout={startLogoutSpy} />);
+
+  wrapper.find('button').simulate('click');
+  expect(startLogoutSpy).toHaveBeenCalled();
+
+});
+
+// Loginpage test file -> should startLogin on butotn click
