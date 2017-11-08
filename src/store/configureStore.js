@@ -1,7 +1,8 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import {expensesReducer} from '../reducers/expenses';
 import {filtersReducer} from '../reducers/filters';
-import thunk from 'redux-thunk';
+import {authReducer} from '../reducers/auth';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -10,7 +11,8 @@ export default () => {
   const store = createStore(
   combineReducers({ // combineRedcuers takes an argument which is an object
 expenses: expensesReducer,  // the key is going to be the root state name
-filters: filtersReducer
+filters: filtersReducer,
+auth: authReducer
   }),  // & the value is going to be the reducer that is supposed to manage that
 // & by using combineReducer we are notputting our object or array on the root
 // we are putting the array on the expenses property

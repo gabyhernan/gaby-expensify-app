@@ -1,13 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
+const dotenv = require('dotenv');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 // one is setting the env to 'production' on Heroku , the other one is setting env as 'test'
 // if neither then it is 'development'
 
 if(process.env.NODE_ENV === 'test') {
-  require('dotenv').config({ path: '.env.test'});
+  dotenv.config({ path: '.env.test'});
 } else if(process.env.NODE_ENV === 'development') {
   require('dotenv').config({ path: '.env.development'});
 }
