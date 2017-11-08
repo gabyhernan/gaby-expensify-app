@@ -35,8 +35,10 @@ export const startAddExpense = ( expenseData = {}) => {
   // gonna do it in a different way so u know that it can be done like this also
 
   // we ar going to return a function
-  return (dispatch) => {  // only works cuz the middleware has been setup
-    // gets called internally by redux
+  return (dispatch, getState) => {  // only works cuz the middleware has been setup
+    // gets called internally by redux, we can also called getState & use it
+    const uid = getState().auth.uid; // access to user id
+
     const {
       description = '',
       note = '',
@@ -47,7 +49,7 @@ export const startAddExpense = ( expenseData = {}) => {
     const expense = { description, note, amount, createdAt };
     // 1. writing some data to firebase
     // returning this so we can start a promise chain
-  return database.ref('expenses').push(expense).then( (ref) =>{
+  return database.ref(`users/${uid}/expenses`).push(expense).then( (ref) =>{
  // we have to dispatch action from up above otherwise store WONT CHANGE eva
     dispatch(addExpense({
       id: ref.key,
@@ -69,8 +71,10 @@ export const removeExpense = ( {id} = {} ) => ({
 
 // START REMOVE EXPENSE
 export const startRemoveExpense = ( {id } = {} ) => {
-  return (dispatch) => {
-      return database.ref(`expenses/${id}`).remove().then( (ref) =>{
+  return (dispatch, getState) => {
+
+    const uid = getState().auth.uid;
+      return database.ref(`users/${uid}/expenses/${id}`).remove().then( (ref) =>{
           dispatch(removeExpense({ id }));
       }).catch( (e) => console.log('Error fetching data', e));
   }
@@ -85,8 +89,9 @@ export const editExpense = ( id, updates) => ({
 });
 
 export const startEditExpense = ( id, updates) => {
-  return (dispatch) => {
-    return database.ref(`expenses/${id}`).update(updates).then( () => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/expenses/${id}`).update(updates).then( () => {
       dispatch(editExpense(id, updates));
 
     }).catch( (e) => console.log('Error fetching data', e));
@@ -105,9 +110,12 @@ export const setExpenses = (expenses) => ({
 // 3. Dispatch SET_EXPENSES
 // 4.
 export const startSetExpenses = () => {
-  return (dispatch) => {
+  return (dispatch, getState ) => {
 
-   return database.ref('expenses').once('value')
+    const uid = getState().auth.uid;
+
+
+   return database.ref(`users/${uid}/expenses`).once('value')
   .then( (snapshot) => {
    const expenses = [];
     // iterate over all of the child snapshots & toss them in this array
