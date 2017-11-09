@@ -1,18 +1,24 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {startLogout} from '../actions/auth';
 
 
 
 export const Header = ({ startLogout}) => (
-  <header>
-    <h1> Expensify </h1>
-    <NavLink to="/dashboard" activeClassName="is-active" > Dashboard </NavLink>
+  <header className="header">
+  <div className="content-container">
+    <div className="header__content"> {/* to distribut header on flexbox */}
+    <Link className="header__title" to="/dashboard"  >
+      <h1> Expensify </h1>
+    </Link>
   {/* activeClassName lets us provide a class that is only going to get applied
   to the link when we are on that page  */}
-     <NavLink to="/create" activeClassName="is-active" > Create Expense </NavLink>
-     <button onClick={startLogout}> Logout </button>
+  <button onClick={startLogout}
+          className="button button--link"
+     > Logout </button>
+        </div>
+     </div>
    </header>
   );
 

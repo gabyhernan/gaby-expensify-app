@@ -102,6 +102,7 @@ export default class ExpenseForm extends React.Component {
 
       <form onSubmit={this.onSubmit}>
         <input
+          className="text-input"
           type="text"
           placeholder="description"
           autoFocus
@@ -109,6 +110,7 @@ export default class ExpenseForm extends React.Component {
           onChange={this.onDescriptionChange}
         />
         <input
+          className="text-input"
           type="text"
         // have to set  our own validation for numbers
           placeholder="Amount"
