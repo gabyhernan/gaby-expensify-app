@@ -22,7 +22,7 @@ module.exports = (env) => {
  const CSSExtract = new ExtractTextPlugin('styles.css')
   console.log('env', env);
   return {
-  entry: './src/app.js',
+  entry: ['babel-polyfill','./src/app.js'],
   output: {  // first is path, second is file name
     // path is the absolute path on your machine to where you want to
     // output that webpack file, we want to put in the public folder of this project

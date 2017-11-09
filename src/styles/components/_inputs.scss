@@ -4,9 +4,16 @@
   font-weight: 300;
   height: 50px;
   padding: $s-size;
+  &:focus {
+    outline: $blue auto 3px;
+  }
 }
 
 .select {
   @extend .text-input;
+}
 
+.textarea {
+  @extend .text-input;
+  height: 10rem;
 }

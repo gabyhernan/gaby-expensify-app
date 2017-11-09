@@ -26,15 +26,25 @@ export class EditExpensePage extends React.Component {
   render () {
       return (
   <div>
+      <div className="page-header">
+        <div className="content-container">
+        <h1 className="page-header__title"> Edit Expense </h1>
+        </div>
+       </div>
+
+       <div className="content-container">
         <ExpenseForm
    // we expect that the previous data we created in AddExpense page to be here
 // to get that done we have to take the expense and pass it down
           expense={this.props.expense}
           onSubmit={this.onSubmit}
           />
-
-    <button onClick={this.onClickRemoveExpense} > Remove </button>
-
+    <div>
+    <button onClick={this.onClickRemoveExpense}
+            className="button grey"
+     > Remove Expense </button>
+    </div>
+  </div>
 
   </div>
   );

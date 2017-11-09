@@ -6,14 +6,17 @@ import numeral from 'numeral';
 
 //  destructuring props object & get indivual things off from it
  const ExpenseListItem = ({ description, amount, createdAt , id}) => (
-  <div>
-    <Link to={`/edit/${id}`}>
-    <h3> {description} </h3>     </Link>
-    <p> {numeral(amount / 100).format('$0,0.00')}
-        -
-      {moment(createdAt).format('MMMM Do, YYYY')} </p>
+    <Link to={`/edit/${id}`} className="list-item">
+    <div> {/* left side of table */}
+    <h3 className="list-item__title"> {description} </h3>
+    <span className="list-item__sub-title"> {moment(createdAt).format('MMMM Do, YYYY')} </span>
+    </div>
 
-   </div>
+     <h3 className="list-item__data"> {/* right side of table */}
+     {numeral(amount / 100).format('$0,0.00')}
+     </h3>
+
+      </Link>
   );
 
 // make remove button work

@@ -14,11 +14,18 @@ export class AddExpensePage extends React.Component {
   render() {
   return (
   <div>
+    <div className="page-header">
+      <div className="content-container">
+        <h1 className="page-header__title"> Add Expense</h1>
+      </div>
+    </div>
+
+    <div className="content-container">
     <ExpenseForm
     onSubmit={this.onSubmit} /> {/* the add expense page needs to be able to actually dispatch the
     given action to the redux store  */}
+    </div>
 
-    This is from my add expense page component
   </div>
   );
   }
