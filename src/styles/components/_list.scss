@@ -23,6 +23,7 @@
   padding: $s-size;
   text-decoration: none;
   transition: background .3s ease;
+  justify-content: space-between;
   &:hover {
     background: $off-white;
   }
@@ -58,6 +59,7 @@
 .list-item__data {
   // mobile
   margin: $s-size 0 0 0;
+
   @media (min-width: $desktop-breakpoint) {
     margin: 0;
     padding-left: $s-size;
